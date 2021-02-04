@@ -11,22 +11,26 @@ let todos = [
 
 let count = todos.length;
 
-todos.forEach(item => renderOneTodo(item));
+todos.forEach(item => createOneTodo(item));
 
 function addTodo(text) {
   count++;
-  renderOneTodo({ id:count, text });
+  createOneTodo({ id:count, text });
   todos.push({ id:count, text });
 }
 
-function renderOneTodo(item) {
+// Create one todo
+function createOneTodo(item) {
   const li = document.createElement('li');
   li.id = item.id;
-  const content = document.createElement('span');
+  const content = document.createElement('input');
+  content.maxLength = 30;
   content.className = 'content';
-  content.textContent = item.text;
+  content.value = item.text;
   li.append(content);
-  const deleteBtn = getDeleteBtn();
+  const saveBtn = createSaveBtn();
+  li.append(saveBtn);
+  const deleteBtn = createDeleteBtn();
   li.append(deleteBtn);
   li.addEventListener('dblclick', (e) => {
     e.currentTarget.classList.toggle('active');
@@ -34,7 +38,8 @@ function renderOneTodo(item) {
   $('#container').append(li);
 }
 
-function getDeleteBtn() {
+// Create delete button
+function createDeleteBtn() {
   const btn = document.createElement('span');
   btn.textContent = '×';
   btn.className = 'delete-btn';
@@ -46,14 +51,29 @@ function getDeleteBtn() {
   return btn;
 }
 
+// Create save button
+function createSaveBtn() {
+  const btn = document.createElement('span');
+  btn.textContent = '💾';
+  btn.className = 'save-btn';
+  btn.addEventListener('click', (e) => { 
+    const id = e.target.parentNode.id;
+    console.log('save');
+  });
+  return btn;
+}
+
+// CLICK: add an item 
 $('#todo-add').addEventListener('click', e => {
   addTodo($('#todo-text').value);
 });
 
+// KEYUP: validate and toggle Add button
 $('#todo-text').addEventListener('keyup', e => {
   $('#todo-add').disabled = e.target.value.length == 0;
 });
 
+// KEYUP: filter items
 $('#todo-filter').addEventListener('keyup', e => {
    $('#container').innerHTML = '';
   let found = [];
@@ -62,5 +82,5 @@ $('#todo-filter').addEventListener('keyup', e => {
   } else {
     found = [...todos];
   }
-  found.forEach(item => renderOneTodo(item));
+  found.forEach(item => createOneTodo(item));
 });

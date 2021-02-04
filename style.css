@@ -8,6 +8,10 @@ input, button {
   border: 1px solid #ccc;
 }
 
+input.content {
+  width: calc(100% - 70px);
+}
+
 button#todo-add {
   cursor: pointer;
 }
@@ -25,10 +29,14 @@ button#todo-add:disabled {
 }
 
 #container > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
   border: 1px solid #fdd566;
   border-left: 5px solid #fdd566;
   background-color: #ffe9ac;
-  padding: 10px;
+  padding: 5px;
   margin: 5px 0;
   list-style: none;
   user-select: none;
@@ -43,8 +51,8 @@ button#todo-add:disabled {
 }
 
 #container > li > span.delete-btn {
-  float: right;
   cursor: pointer;
+  margin-bottom: 1px;
   padding: 1px 4px 5px 4px;
   max-height: 12px;
   border-radius: 2px;
@@ -59,6 +67,17 @@ button#todo-add:disabled {
   transform: rotate(90deg);
   color: #fff;
   background-color: #ff7300;
+}
+
+#container > li > span.save-btn {
+  cursor: pointer;
+  margin-bottom: 2px;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+#container > li > span.save-btn:hover {
+  opacity: 1;
 }
 
 .m-l-10 {
