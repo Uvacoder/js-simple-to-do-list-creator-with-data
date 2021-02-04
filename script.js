@@ -23,10 +23,7 @@ function addTodo(text) {
 function createOneTodo(item) {
   const li = document.createElement('li');
   li.id = item.id;
-  const content = document.createElement('input');
-  content.maxLength = 30;
-  content.className = 'content';
-  content.value = item.text;
+  const content = createInput(item.text);
   li.append(content);
   const saveBtn = createSaveBtn();
   li.append(saveBtn);
@@ -36,6 +33,26 @@ function createOneTodo(item) {
     e.currentTarget.classList.toggle('active');
   });
   $('#container').append(li);
+}
+
+// Create input field
+function createInput(text) {
+  const input = document.createElement('input');
+  input.maxLength = 30;
+  input.className = 'content';
+  input.value = text;
+  input.addEventListener('keyup', e => {
+    // const id = e.target.parentNode.id;
+    // const found = todos.find(item => item.id == id);
+    e.target.parentNode.childNodes.forEach(item => {
+      item.classList.remove('disabled');
+    })
+  });
+  return input;
+}
+
+function updateContent(id) {
+  
 }
 
 // Create delete button
@@ -55,10 +72,10 @@ function createDeleteBtn() {
 function createSaveBtn() {
   const btn = document.createElement('span');
   btn.textContent = '💾';
-  btn.className = 'save-btn';
+  btn.classList.add('save-btn', 'disabled');
   btn.addEventListener('click', (e) => { 
     const id = e.target.parentNode.id;
-    console.log('save');
+    console.log('save id:', id);
   });
   return btn;
 }

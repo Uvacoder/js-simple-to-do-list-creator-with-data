@@ -72,12 +72,13 @@ button#todo-add:disabled {
 #container > li > span.save-btn {
   cursor: pointer;
   margin-bottom: 2px;
-  opacity: 0.7;
+  opacity: 1;
   transition: opacity 0.15s ease;
 }
 
-#container > li > span.save-btn:hover {
-  opacity: 1;
+#container > li > span.save-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .m-l-10 {
