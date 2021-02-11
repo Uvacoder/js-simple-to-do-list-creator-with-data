@@ -11,16 +11,16 @@ let todos = [
 
 let count = todos.length;
 
-todos.forEach(item => createOneTodo(item));
+todos.forEach(item => createTodo(item));
 
 function addTodo(text) {
   count++;
-  createOneTodo({ id:count, text });
+  createTodo({ id:count, text });
   todos.push({ id:count, text });
 }
 
-// Create one todo
-function createOneTodo(item) {
+// Create a todo
+function createTodo(item) {
   const li = document.createElement('li');
   li.id = item.id;
   const content = createInput(item.text);
@@ -42,10 +42,10 @@ function createInput(text) {
   input.className = 'content';
   input.value = text;
   input.addEventListener('keyup', e => {
-    // const id = e.target.parentNode.id;
-    // const found = todos.find(item => item.id == id);
     e.target.parentNode.childNodes.forEach(item => {
-      item.classList.remove('disabled');
+      if (item.classList.contains('disabled')) {
+        item.classList.remove('disabled');
+      }
     })
   });
   return input;
@@ -73,9 +73,9 @@ function createSaveBtn() {
   const btn = document.createElement('span');
   btn.textContent = '💾';
   btn.classList.add('save-btn', 'disabled');
-  btn.addEventListener('click', (e) => { 
-    const id = e.target.parentNode.id;
-    console.log('save id:', id);
+  btn.addEventListener('click', (e) => {
+    const found = todos.find(item => item.id == e.target.parentNode.id)
+    console.log({{}});
   });
   return btn;
 }
@@ -99,5 +99,5 @@ $('#todo-filter').addEventListener('keyup', e => {
   } else {
     found = [...todos];
   }
-  found.forEach(item => createOneTodo(item));
+  found.forEach(item => createTodo(item));
 });
