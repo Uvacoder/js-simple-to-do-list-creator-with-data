@@ -75,7 +75,6 @@ function createSaveBtn() {
   btn.classList.add('save-btn', 'disabled');
   btn.addEventListener('click', (e) => {
     const found = todos.find(item => item.id == e.target.parentNode.id)
-    console.log({{}});
   });
   return btn;
 }
